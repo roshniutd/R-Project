@@ -1,4 +1,4 @@
-quelibrary(DBI) #coverts r to 
+library(DBI) #coverts r to 
 library(RSQLite) 
 library(data.table)
 library(broom)
