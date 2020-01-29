@@ -1,4 +1,4 @@
-library(DBI) #coverts r to 
+quelibrary(DBI) #coverts r to 
 library(RSQLite) 
 library(data.table)
 library(broom)
@@ -20,7 +20,7 @@ wpull <- function(tablename){
   return(dt)
 }
 library(ggplot2)
-#################Question 1#############################################
+################1#############################################
 vote1 <- dbReadTable(con,'vote1')
 Bexpend <- log(vote1$expendB)
 Aexpend <- log(vote1$expendA)
@@ -45,7 +45,7 @@ T_Test <- -0.53427 / 0.53311 # |-1.002| #1.002<1.960
 #Since T_Test value is rejected in 5% and P Value is also less than 0 
 #Reject H0, a 1% increase in A's expenditures is not offset by a 
 #1% increase in B's expenditures
-#############################Question 2####################################
+#############################2####################################
 LAWSCH85 <- dbReadTable(con,'LAWSCH85')
 LAWSCH85
 lm <- lm(log(salary)~LSAT+GPA+(log(libvol))+(log(cost))+(rank),data=LAWSCH85)
@@ -72,7 +72,7 @@ summary(lm23)
 ########################################################################
 LAWSCH85 <- wpull('LAWSCH85')
 #libvol,faculty,cost,north,south,east and west influence the rank of the law school
-################Question 3#############################################
+################ 3#############################################
 hprice1 <- dbReadTable(con,'hprice1')
 hprice1
 lm <- lm(log(price)~sqrft +bdrms,data=hprice1)
@@ -94,7 +94,7 @@ summary(lm3_2) #t value = 3.205 p value is 0
 tidy(lm3_2)
 tidy(lm3_2,conf.int = T,conf.level = 0.95)
 #The confidence interval is 0.0326 and 0.139
-#####################Question 4#########################################
+##################### 4#########################################
 #H0:b2+1 = b3+1 or b2=b3 #Theta=b3+1-b2-1 #b3-b2 
 wage2 <- dbReadTable(con,'wage2') 
 #Complicated hypothesis testing
@@ -106,7 +106,7 @@ T_Stat <- -0.001954/0.004743  #|-0.412|=0.412
 tidy(lmC,conf.int=TRUE,conf.level = 0.05)
 #0.412 < 1.960 We reject null in 5% #P value is 0.681/;"
 
-#####################Question 5########################################
+##################### 5########################################
 subs401k <- dbReadTable(con,'401ksubs') 
 length(which(subs401k$fsize==1)) #There are 2017 families with a family size of 1
 ########################################################################
@@ -132,7 +132,7 @@ lm5_2 <- lm(nettfa~inc,data=subs_fsize)
 summary(lm5_2) #nettfa=-10.5709 + 0.8207(inc)
 Diff <- 0.8207 - 0.79932 #The difference is 0.02 and is not very significant
 #this could be due to the fact that this model does not have age
-#####################Question 6#######################################
+#####################6#######################################
 kielmc <- dbReadTable(con,'kielmc')
 kielmc <- wpull('kielmc') 
 subset2<-subset(kielmc, year==1981)
@@ -162,7 +162,7 @@ summary(lm6_3)#0.545477+0.146375(log(dist))+1.753239(log(intst))
 lm6_4<-lm((log(price))~(log(dist))+(log(intst))+(log(land))+rooms+ 
   baths+age+I((log(intst))^2)+I((log(dist))^2),data = kielmc,year==1981)
 summary(lm6_4) # t stat = 1.053 and p value is 0.29 so it is insignificant 
-#####################Question 7#######################################
+##################### 7#######################################
 wage1 <- dbReadTable(con,'wage1')
 lm7_1 <- lm(log(wage) ~ educ + exper +I(exper^2), data=wage1)
 summary(lm7_1)
@@ -180,7 +180,7 @@ Exper_20 <- 0.04 + (2*(-0.0007)*20) #0.012
 #In the sample, there are 121 people with at least 29 years of experience.
 experexp = 0.041/(2*(.000714)) #28.7 years of experience
 length(which(wage1$exper>=29))
-#####################Question 8#######################################
+#####################8#######################################
 wage1 <- log(wage2$wage)
 lm8_1 <- lm(wage1~educ+exper+I(educ*exper),data = wage2)
 summary(lm8_1) #Making exper constant
@@ -208,7 +208,7 @@ summary(lm8_3)
 tidy(lm8_3,conf.int = 0.95)
 #Theata1 value = 0.0761 Error = 0.00662
 #The confidance interval is 0.0631 and 0.0891
-#####################Question 9#######################################
+##################### 9#######################################
 gpa2 <- wpull('gpa2')
 gpa2 <- dbReadTable(con,'gpa2')
 lm9_1 <- lm(sat~hsize+I((hsize)^2),data=gpa2)
@@ -228,7 +228,7 @@ lm9_2 <- lm(sat1~hsize+I((hsize)^2),data=gpa2)
 summary(lm9_2) #sat=6.8960291+0.0196029(hsize)-0.0020872(hsize^2)
 #hsize* = 0.0196029/(2*0.0020872)= 4.69 in 100's
 #It is not different from the previous model
-#####################Question 10########################################
+#####################10########################################
 hprice1 <- dbReadTable(con,'hprice1')
 hprice1
 lm1 <- lm(log(price)~log(lotsize) +log(sqrft)+bdrms,data=hprice1)
