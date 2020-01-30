@@ -27,7 +27,7 @@ wpull <- function(tablename){
   return(dt)
 }
 ###########################################################
-#Question 1
+# 1
 wpull <- wpull('hprice1')
 hprice1 <- dbReadTable(con,'hprice1')
 lm01 <- step(lm(log(price)~(bdrms+lotsize+sqrft)^2+(bdrms+lotsize+sqrft)^3+I(bdrms^2)+I(lotsize^2)+I(sqrft^2)+colonial, data=hprice1))
@@ -40,7 +40,7 @@ AIC(lm(price ~ bdrms + lotsize + sqrft + I(bdrms^2) + I(lotsize^2) +
          colonial + bdrms:lotsize, data = hprice1)) #930.1773
 #The R^2 of model 2 is better and so model 2 is a better Model
 ###########################################################
-#Question 2
+# 2
 wpull <- wpull('gpa2')
 gpa2 <- dbReadTable(con,'gpa2')
 lm04 <- step(lm(colgpa~sat+(tothrs+hsize+hsrank+hsperc)^2+I(sat^2)+I(hsize^2)+I(hsrank^2)+athlete+female+black+white*black, data=gpa2))
@@ -55,7 +55,7 @@ AIC(lm(colgpa ~ sat + tothrs + hsize + hsrank + hsperc +
          hsrank:hsperc, data = gpa2)) #6576.608
 #lm4 looks like the comparetivly best model since all other models have an even lower R square
 ###########################################################
-#Question 3
+# 3
 wpull <- wpull('mlb1')
 mlb1 <- dbReadTable(con,'mlb1')
 lm05 <- step(lm(log(salary)~teamsal+nl+years+games+runs+triples+so+sbases+fldperc+I(frstbase+scndbase+shrtstop+thrdbase)^2+outfield
@@ -72,7 +72,7 @@ AIC(lm(log(salary) ~ nl + years + games + runs + triples +
 #The R Squared of this model is the highest and the BIC value also looks good comparetively
 #lm05 is the best model even though there are many unexplained characters to the model
 ###########################################################
-#Question 4.A
+# 4.A
 wpull <- wpull('rental')
 rental <- dbReadTable(con,'rental')
 y90.dummy=rep(0,nrow(rental))
@@ -101,7 +101,7 @@ summary(lm3)
 #The model is different from the previous model in R squared and significance
 ###############################################################
 ###############################################################
-#Question 5.A
+# 5.A
 wpull <- wpull('murder')
 murder <- dbReadTable(con,'murder')
 murder2 <- pdata.frame(murder,index = c("state","year"))
@@ -146,7 +146,7 @@ summary(lm8)
 lm9 <- plm(mrdrte~exec+unem,model="pooling",data=murder2 %>% subset(year==90 | year==93))
 summary(lm9)
 #################################################################
-#Question 6.A
+# 6.A
 wpull <- wpull('AIRFARE')
 airfare <- dbReadTable(con,'AIRFARE')
 airfare2 <- pdata.frame(airfare,index = c("id","year"))
@@ -177,7 +177,7 @@ summary(lm12) #B1 value is now 0.1688590 and it is statisically significant
 #6.F
 #It could be true to a certain level but there are other factors that matter more
 ###################################################################
-#Question 7.A
+# 7.A
 wpull <- wpull('loanapp')
 loanapp <- dbReadTable(con,'loanapp')
 lm11 <- glm(approve~white,family="binomial",data=loanapp)
@@ -194,7 +194,7 @@ lm13 <- glm(approve~white+hrat+obrat+loanprc+unem+male+married+dep+sch+cosign+ch
 summary(lm13,vcov.=vcovHC) #There is high significance that the approval chances of a white
 #applicant is more than that of a non white applicant
 #####################################################################
-#Question 8.A
+# 8.A
 wpull <- wpull('alcohol')
 alcohol <- dbReadTable(con,'alcohol')
 (length(which(alcohol$employ==1))/nrow(alcohol))*100 # % Employed = 89.82  
@@ -246,7 +246,7 @@ summary(step(lm18),k=log(nrow(alcohol)))
 #Now that we have added the mothalc and fathalc to the equation the abuse has become 
 #statistically insignificant
 ###########################################################################
-#QUESTION 9.A
+# 9.A
 wpull <- wpull('fertil1')
 fertil1 <- dbReadTable(con,'fertil1')
 y74.dummy=rep(0,nrow(fertil1))
