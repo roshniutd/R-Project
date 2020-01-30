@@ -5,7 +5,7 @@ library(plm)
 library(ggplot2)
 
 
-#Q1
+#1
 n <- 500
 set.seed(75080)
 
@@ -45,7 +45,7 @@ dtable <- merge(dtable ,data3, all=TRUE)
 
 #############################################
 
-#Q2
+#2
 dtable$group <- as.factor(dtable$group)
 dtable$iid <- 1:1500
 
@@ -65,7 +65,7 @@ summary(modelv3)
 
 #############################################
 
-#Q3
+#3
 
 ctree(sat~income+group,data=dtable)
 ctree(sat~income,data=dtable)
@@ -76,7 +76,7 @@ plot(ctree(sat~group,data=dtable))
 
 #############################################
 
-#Q4
+#4
 
 glmtree(sat~income|group,data=dtable)
 plot(glmtree(sat~income|group,data=dtable))
@@ -86,7 +86,7 @@ plot(glmtree(sat~income|group,data=dtable))
 
 #############################################
 
-#Q5
+#5
 
 kmeansplot <- function(wss){
   wss <- data.table('Centers'=1:NROW(wss),'wss'=wss)
@@ -107,7 +107,7 @@ kmeans(dtable%>%select(sat,income),3)$centers
 
 #############################################
 
-#Q6
+#6
 dtable$kmean_31 <- as.factor(kmeans(dtable%>%select(sat,income),3)$cluster)
 table(dtable$kmean_31,dtable$group)
 
@@ -122,7 +122,7 @@ table(dtable$hclust,dtable$group)
 # The hierarchical cluster too doesn't do well and its not better than k-cluster. 
 
 #############################################
-#Q7
+#7
 
 summary(pooled <- lm(sat~income,data=dtable))
 summary(model123 <- lm(sat~income+kmean_31-1,data=dtable))
@@ -133,7 +133,7 @@ summary(model323 <- lm(sat~income+hclust-1,data=dtable))
 # My prespective is that because of the fact that we did not scale the data
 
 #############################################
-#Q8
+#8
 wss <- rep(NA,10)
 for(i in 1:10)
   wss[i] <- kmeans(dtable%>%select(income),i,nstart=10)$tot.withinss
@@ -159,7 +159,7 @@ summary(modelh223 <- lm(sat~income+kmean_31-1,data=dtable))
 # As we can observe the estimation accuracy is 98.2%
 
 #############################################
-#Q9
+#9
 wss <- rep(NA,10)
 for(i in 1:10)
   wss[i] <- kmeans(dtable%>%select(sat,income)%>%scale,i,nstart=10)$tot.withinss
